@@ -1,24 +1,29 @@
-class Solution:
-    def compareVersion(self, version1: str, version2: str) -> int:
-        #1. Split and form arrays
-        v1Arr = version1.split(".")
-        v2Arr = version2.split(".")
+class Solution {
+    public int compareVersion(String version1, String version2) {
+        //1. Split the array
+        String[] firstArr = version1.split("\\.");
+        String[] secondArr = version2.split("\\.");
         
-        # placeholders
-        maxLength = max(len(v1Arr), len(v2Arr))
-        v1Arr+=['0']*(maxLength-len(v1Arr))
-        v2Arr+=['0']*(maxLength-len(v2Arr))
-        #2. For loop for all parts of the array
-        for i in range(maxLength):
-                #a. check if they are equal
-                firstVal = int(v1Arr[i])
-                secondVal = int(v2Arr[i])
-                
-                #b. check if its less than 
-                if firstVal<secondVal:
-                    return -1
-                if firstVal > secondVal:
-                    return 1
-                
-        #3. return 0 othervise
-        return 0
+        //2. Find the max length
+        int maxLength = Math.max(firstArr.length, secondArr.length);
+        
+        for(int i =0;i<maxLength;i++){
+            //a. Determine the strings
+            String firstNum = (i<firstArr.length)?firstArr[i]:"0";
+            String secondNum = (i<secondArr.length)?secondArr[i]:"0";
+            
+            //b. Determine the integers (string-> int type)
+            int num1 = Integer.valueOf(firstNum);
+            int num2 = Integer.valueOf(secondNum);
+            
+            //c. if num1<num2
+            if (num1<num2){
+                return -1;
+            }
+            if (num1>num2){
+                return 1;
+            }
+        }
+        return 0;
+    }
+}
