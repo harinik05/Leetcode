@@ -3,7 +3,7 @@ class Solution:
     def numRescueBoats(self, people: List[int], limit: int) -> int:
         '''
         Lacks optimal substructure, can't build from child costs
-        Time Complexity: O(nlgn)
+        Time Complexity: O(nlgn) due to the sorting
         Space Complexity: O(1)
         '''
         
