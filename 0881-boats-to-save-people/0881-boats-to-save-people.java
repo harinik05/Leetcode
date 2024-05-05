@@ -13,7 +13,7 @@ class Solution {
                 end--;
                 
             }
-            //b. over exceeded the limit
+            //b. over exceeded the limit (only person in end can be accomodated)
             else{
                 end--;
             }
