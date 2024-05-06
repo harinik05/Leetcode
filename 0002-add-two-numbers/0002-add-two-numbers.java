@@ -1,36 +1,40 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        firstNum=""
-        secondNum = ""
-        #1. Loop through the first l1
-        while l1:
-            firstNum+=str(l1.val)
-            l1 = l1.next
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        //1. Output list node
+        ListNode dummy = new ListNode(-1);
+        ListNode resultant = dummy;
+        int carry = 0;
+        int sum = 0;
         
-        #2. loop through the second l2
-        while l2:
-            secondNum+=str(l2.val)
-            l2 = l2.next 
-        
-        #3. reverse and add the numbers
-        firstNum=firstNum[::-1]
-        secondNum = secondNum[::-1]
-        sumOfNums = int(firstNum) + int(secondNum)
-        sumOfNums = str(sumOfNums)
-        sumOfNums = sumOfNums[::-1]
-        
-        #4. store this as a linked list
-        dummy = ListNode()
-        current = dummy
-        for nums in sumOfNums:
-            current.next=ListNode(int(nums))
-            current=current.next
-        
-        return dummy.next
+        //2. While loop
+        while(l1!=null || l2!=null||carry!=0){
+            //a) initialize the values
+            int firstVal = (l1!=null)?l1.val:0;
+            int secondVal = (l2!=null)?l2.val:0;
             
+            //b) inialize the sum 
+            sum = firstVal+ secondVal+carry;
+            carry = sum/10;
+            resultant.next = new ListNode(sum%10);
+            resultant = resultant.next;
+            
+            
+            //c.) go to the next values
+            l1 = (l1!=null)?l1.next:null;
+            l2 = (l2!=null)?l2.next:null;
+            
+        }
+        return dummy.next;
         
+    }
+}
