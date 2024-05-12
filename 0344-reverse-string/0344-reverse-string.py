@@ -3,5 +3,13 @@ class Solution:
         """
         Do not return anything, modify s in-place instead.
         """
-        s.reverse()
+        lo = 0
+        hi = len(s)-1
+        
+        # while loop
+        while lo<hi:
+            s[lo],s[hi] = s[hi],s[lo]
+            lo+=1
+            hi-=1
+        
         
