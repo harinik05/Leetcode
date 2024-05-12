@@ -3,7 +3,7 @@ class Solution:
     def backtrack(self, board, row, col, word):
         if len(word)==0:
             return True
-        if row < 0 or col < 0 or row >= len(board) or col >= len(board[0]) or self.visited[row][col] or board[row][col] != word[0]:
+        if row < 0 or col < 0 or row > len(board)-1 or col >len(board[0])-1 or self.visited[row][col] or board[row][col] != word[0]:
             return False
         self.visited[row][col] = True
         
