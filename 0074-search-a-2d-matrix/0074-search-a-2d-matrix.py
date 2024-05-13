@@ -11,11 +11,7 @@ class Solution:
         lo = 0
         hi = len(fullArray)-1
         
-        #1. Define with max length of 2
-        if len(fullArray)<=2:
-            for i in range(len(fullArray)):
-                if fullArray[i] == target:
-                    return True
+        
         while lo<=hi:
             pivot = (lo+hi)//2
             if fullArray[pivot]<target:
