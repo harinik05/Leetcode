@@ -1,3 +1,8 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         # ListNodes for storing odd and even stuff
@@ -8,25 +13,24 @@ class Solution:
         evenCurrent = evenDummy
         
         headCpy = head
-        
-        # Keep track of odd and even indices
-        is_odd = True
-        
+        oddStatus = True
         # while loop 
         while headCpy:
-            if is_odd:
-                oddCurrent.next = headCpy
-                oddCurrent = oddCurrent.next
-            else:
+            if not oddStatus:
                 evenCurrent.next = headCpy
                 evenCurrent = evenCurrent.next
+            else:
+                oddCurrent.next = headCpy
+                oddCurrent = oddCurrent.next
+            
             headCpy = headCpy.next 
-            is_odd = not is_odd
+            oddStatus = not oddStatus
         
-        # Terminate the even list
         evenCurrent.next = None
+        oddCurrent.next = evenDummy.next
         
-        # Connect odd list to even list
-        oddCurrent.next = evenDummy.next 
+        # dont leave evenCurrent dangling set to null ptr 
         
+
         return oddDummy.next
+            
