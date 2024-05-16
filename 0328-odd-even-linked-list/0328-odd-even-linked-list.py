@@ -16,7 +16,7 @@ class Solution:
         oddStatus = True
         # while loop 
         while headCpy:
-            if not oddStatus:
+            if  not oddStatus:
                 evenCurrent.next = headCpy
                 evenCurrent = evenCurrent.next
             else:
