@@ -17,7 +17,7 @@ class Solution {
         
         ListNode previous = null;
         ListNode current = head;
-        
+        //cnpc
         while (current!=null){
             ListNode temp = current.next;
             current.next = previous;
