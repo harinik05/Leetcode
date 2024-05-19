@@ -1,16 +1,16 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        #1. Create a hashmap 
+        
+        #1. Initialize hashmap 
         hashmap = {}
         
-        #2. Load up the keys with nums[i]
+        #2. Loop through all of them and put in the indices
         for i in range(len(nums)):
             hashmap[nums[i]] = i
         
-        
-        #3. Loop through the array again
+        #3. Do the step with the complements
         for j in range(len(nums)):
-            complementSum = target-nums[j]
-            if complementSum in hashmap.keys() and hashmap[complementSum]!=j:
-                return [j,hashmap[complementSum]]
+            complement = target - nums[j]
+            if complement in hashmap and hashmap[complement]!=j:
+                return [j,hashmap[complement]]
         return
