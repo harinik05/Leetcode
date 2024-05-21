@@ -1,21 +1,29 @@
 class Solution:
-    #1. Helper function to find the sum 
-    def findSum(self,number):
-        sNum = str(number)
-        total = 0
-        for char in sNum:
-            total+=(int(char)**2)
-        return total
-        
     def isHappy(self, n: int) -> bool:
-        #1. Total sum 
-        totalSum =n
-        setOfSums = set()
-        while totalSum!=1 and totalSum not in setOfSums:
-            setOfSums.add(totalSum)
-            totalSum = self.findSum(totalSum)
+        
+        #1. Initialize the set for storing all the values 
+        sSet = set()
+        flag = True
+        
+        #2. While loop as long as the flag is true
+        while flag == True:
+            #1. Determine the sum of squares
+            totalSum = 0
+            nStr = str(n)
             
-        
-        return totalSum==1
-        
+            for characters in nStr:
+                totalSum += (int(characters)**2)
+            
+            #2. Place the sum into the set if possible
+            if totalSum in sSet:
+                flag = False
+            else:
+                sSet.add(totalSum)
+                
+            #3. check if the sum is 1
+            if totalSum == 1:
+                return True
+            n = totalSum
+        return False
+                
         
