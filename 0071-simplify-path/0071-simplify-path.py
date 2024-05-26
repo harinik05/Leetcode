@@ -7,15 +7,20 @@ class Solution:
         splitMethod = path.split("/")
         
         #3. Loop through all of them and put it in a stack 
-        for i in range(len(splitMethod)):
+        for i in range(0, len(splitMethod),1):
             if splitMethod[i] == "..":
                 if stack:
                     stack.pop()
-            elif splitMethod[i] != "." and splitMethod[i] != "":
+            elif splitMethod[i] != "" and splitMethod[i] != ".":
                 stack.append(splitMethod[i])
+            
         
         #4. concatenate everything in the stack 
-        finalStr = "/" + "/".join(stack)
+        finalStr = "/"+"/".join(stack)
+        
         
         #5. return the string
         return finalStr if finalStr else "/"
+            
+                
+        
