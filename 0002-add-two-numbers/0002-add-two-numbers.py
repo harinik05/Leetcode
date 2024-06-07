@@ -5,32 +5,24 @@
 #         self.next = next
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        firstNum=""
-        secondNum = ""
-        #1. Loop through the first l1
-        while l1:
-            firstNum+=str(l1.val)
-            l1 = l1.next
+        dummy = ListNode(-1)
+        current = dummy 
         
-        #2. loop through the second l2
-        while l2:
-            secondNum+=str(l2.val)
-            l2 = l2.next 
-        
-        #3. reverse and add the numbers
-        firstNum=firstNum[::-1]
-        secondNum = secondNum[::-1]
-        sumOfNums = int(firstNum) + int(secondNum)
-        sumOfNums = str(sumOfNums)
-        sumOfNums = sumOfNums[::-1]
-        
-        #4. store this as a linked list
-        dummy = ListNode()
-        current = dummy
-        for nums in sumOfNums:
-            current.next=ListNode(int(nums))
-            current=current.next
+        #1. Loop through everything
+        carry = 0
+        while(l1 or l2 or carry!=0 ):
+            l1Val = l1.val if l1 else 0
+            l2Val = l2.val if l2 else 0
+            
+            totalSum = l1Val+ l2Val+ carry
+            carry = totalSum//10
+            
+            temp = totalSum%10
+            tempNode = ListNode(temp)
+            current.next = tempNode
+            current = tempNode 
+            
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
         
         return dummy.next
-            
-        
