@@ -20,7 +20,7 @@ class Solution:
             temp = totalSum%10
             tempNode = ListNode(temp)
             current.next = tempNode
-            current = tempNode 
+            current = current.next
             
             l1 = l1.next if l1 else None
             l2 = l2.next if l2 else None
