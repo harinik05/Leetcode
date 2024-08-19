@@ -60,7 +60,7 @@ class Solution(object):
                 newRow = row+ direction[0]
                 newCol = col+direction[1]
                 
-                if newRow>=0 and newRow<len(heights) and 0<=newCol<len(heights[0]) and not visited[newRow][newCol] and heights[newRow][newCol] >= heights[row][col]:
+                if newRow>=0 and newRow<len(heights) and newCol>=0 and newCol<len(heights[0]) and not visited[newRow][newCol] and heights[newRow][newCol] >= heights[row][col]:
                         visited[newRow][newCol] = True
                         queue.append((newRow, newCol))
                     
