@@ -1,72 +1,60 @@
-# Breath first search solution
 class Solution(object):
+    
     def __init__(self):
-        self.directions = [(0,1),(0,-1),(1,0),(-1,0)]
-        self.pVisited = []
-        self.aVisited = []
-        self.pQueue = deque()
-        self.aQueue = deque()
+        self.aMatrix = []
+        self.pMatrix = []
         
     def pacificAtlantic(self, heights):
         """
         :type heights: List[List[int]]
         :rtype: List[List[int]]
         """
-        
-        #1. Take care of the empty matrix 
-        if not heights or not heights[0]:
+        if not heights:
             return []
         
-        #2. Determine the lengths of the matrix 
-        rows = len(heights)
-        cols = len(heights[0])
-        
-        self.pVisited = [[False for _ in range(cols)] for _ in range(rows)]
-        self.aVisited = [[False for _ in range(cols)] for _ in range(rows)]
+        self.aMatrix=[[False for _ in range(0,len(heights[0]))] for _ in range(len(heights))]
+        self.pMatrix=[[False for _ in range(0,len(heights[0]))] for _ in range(len(heights))]
+        rowCount = len(heights)
+        colCount = len(heights[0])
         
         
-        #3. horizontal
-        for i in range(0,cols,1):
-            self.pQueue.append((0,i))
-            self.aQueue.append((rows-1,i))
-            self.pVisited[0][i] = True
-            self.aVisited[rows-1][i] = True
-        
-        #4. vertical
-        for j in range(0, rows, 1):
-            self.pQueue.append((j,0))
-            self.aQueue.append((j, cols-1))
-            self.pVisited[j][0]= True
-            self.aVisited[j][cols-1] = True
-        
-        #5. Complete the breath first search 
-        self.BFS(heights, self.pQueue, self.pVisited)
-        self.BFS(heights, self.aQueue, self.aVisited)
-        res = []
-        for r in range(rows):
-            for c in range(cols):
-                if self.pVisited[r][c] and self.aVisited[r][c]:
-                    res.append([r,c])
-        return res
-                    
-    
-    
-    def BFS(self, heights, queue, visited):
-        #1. Define the step variable 
-      
-        while(queue):
-            row,col = queue.popleft()
-            for direction in self.directions:
-                newRow = row+ direction[0]
-                newCol = col+direction[1]
-                
-                if newRow>=0 and newRow<len(heights) and newCol>=0 and newCol<len(heights[0]) and not visited[newRow][newCol] and heights[newRow][newCol] >= heights[row][col]:
-                        visited[newRow][newCol] = True
-                        queue.append((newRow, newCol))
-                    
-                
+        #horizontal
+        for horizontalStuff in range(colCount):
+            self.DFS(heights,0,horizontalStuff, -float('inf'), self.pMatrix )
+            self.DFS(heights, rowCount-1, horizontalStuff, -float('inf'), self.aMatrix)
             
+        #vertical
+        for verticalStuff in range(rowCount):
+            self.DFS(heights, verticalStuff, 0, -float('inf'), self.pMatrix)
+            self.DFS(heights, verticalStuff, colCount-1, -float('inf'), self.aMatrix)
         
+        #dfs/bfs stuff (done)
         
+        output = []
+        #find the overlap
+        for i in range(rowCount):
+            for j in range(colCount):
+                if self.pMatrix[i][j] and self.aMatrix[i][j]:
+                    output.append([i,j])
+        return output
         
+    def DFS(self, heights, r,c,previousValue, bMatrix):
+        #1. Check the necessary conditions
+        if(not heights):
+            return 
+        if not 0<=r<len(heights) or not 0<=c<len(heights[0]):
+            return 
+        if bMatrix[r][c] == True:
+            return 
+        if previousValue>heights[r][c]:
+            return
+        
+        #2. Process the cell
+        bMatrix[r][c] = True
+        
+        #3. Call the DFS as needed
+        self.DFS(heights, r+1, c, heights[r][c], bMatrix)
+        self.DFS(heights, r-1, c, heights[r][c], bMatrix)
+        self.DFS(heights, r, c+1, heights[r][c], bMatrix)
+        self.DFS(heights, r, c-1, heights[r][c], bMatrix)
         
