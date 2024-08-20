@@ -1,30 +1,45 @@
+from collections import deque
+
 class Solution(object):
+    def __init__(self):
+        self.queue = deque()
+        self.directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+        self.islandCounter = 0
+        
     def numIslands(self, grid):
         """
         :type grid: List[List[str]]
         :rtype: int
         """
-        islandCount = 0
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
+        if not grid:
+            return 0
+        
+        rows = len(grid)
+        cols = len(grid[0])
+        
+        for i in range(rows):
+            for j in range(cols):
                 if grid[i][j] == "1":
-                    self.DFS(grid, i, j)
-                    islandCount+=1
-        return islandCount
+                    # Start BFS for a new island
+                    self.BFS(grid, i, j)
+                    self.islandCounter += 1
                     
-    
-    def DFS(self, grid, r, c):
-        #1. Check all necessary conditions
-        if r<0 or c<0 or r>=len(grid) or c>=len(grid[0]):
-            return 
-        if grid[r][c] == "0":
-            return 
-        #2. Process cell (mark as visited)
-        grid[r][c] = "0"
-        #3. Call DFS as needed
-        self.DFS(grid, r+1, c)
-        self.DFS(grid, r-1, c)
-        self.DFS(grid, r, c+1)
-        self.DFS(grid, r, c-1)
+        return self.islandCounter
         
+    def BFS(self, grid, startRow, startCol):
+        self.queue.append((startRow, startCol))
+        grid[startRow][startCol] = "0"  # Mark as visited
         
+        while self.queue:
+            row, col = self.queue.popleft()
+            
+            for direction in self.directions:
+                newRow = row + direction[0]
+                newCol = col + direction[1]
+                
+                if (0 <= newRow < len(grid) and 
+                    0 <= newCol < len(grid[0]) and 
+                    grid[newRow][newCol] == "1"):
+                    
+                    grid[newRow][newCol] = "0"  # Mark as visited
+                    self.queue.append((newRow, newCol))
