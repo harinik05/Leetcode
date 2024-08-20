@@ -1,49 +1,36 @@
-from collections import deque
-
-class Solution(object):
+#DFS
+class Solution:
     def __init__(self):
-        self.queue = deque()
-        self.directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
-        self.islandCounter = 0
+        self.area = 0
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        maxArea = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                self.area = 0
+                self.DFS(grid, i, j)
+                maxArea = max(self.area, maxArea)
+        return maxArea
+    
+    
+    def DFS(self, grid, r, c):
+       
+        #1. Check the necessary conditions
+        if r<0 or r>=len(grid) or c<0 or c>=len(grid[0]):
+            return 
+        if grid[r][c] == 0:
+            return 
         
-    def maxAreaOfIsland(self, grid):
-        """
-        :type grid: List[List[str]]
-        :rtype: int
-        """
-        if not grid:
-            return 0
+        #2. Process the cell
+        grid[r][c] =0
+        self.area +=1
         
-        rows = len(grid)
-        cols = len(grid[0])
+        #3. Call the DFS as needed
+        self.DFS(grid, r+1,c)
+        self.DFS(grid, r-1, c)
+        self.DFS(grid,r,c+1)
+        self.DFS(grid, r, c-1)
         
-        for i in range(rows):
-            for j in range(cols):
-                if grid[i][j] == 1:
-                    # Start BFS for a new island
-                    area = self.BFS(grid, i, j)
-                    self.islandCounter = max(self.islandCounter, area)
-                    
-                    
-        return self.islandCounter
         
-    def BFS(self, grid, startRow, startCol):
-        self.queue.append((startRow, startCol))
-        grid[startRow][startCol] = 0  # Mark as visited
-        area = 1
         
-        while self.queue:
-            row, col = self.queue.popleft()
-            
-            for direction in self.directions:
-                newRow = row + direction[0]
-                newCol = col + direction[1]
-                
-                if (0 <= newRow < len(grid) and 
-                    0 <= newCol < len(grid[0]) and 
-                    grid[newRow][newCol] == 1):
-                    
-                    grid[newRow][newCol] = 0  # Mark as visited
-                    area+=1
-                    self.queue.append((newRow, newCol))
-        return area
+        
+        
