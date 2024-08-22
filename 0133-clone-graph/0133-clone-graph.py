@@ -8,8 +8,35 @@ class Node(object):
 
 class Solution(object):
     def __init__(self):
-        self.hashmap = defaultdict(Node)
+        self.hashmap = {}
+        self.queue = deque();
     def cloneGraph(self, node):
+        if not node:
+            return None
+        return self.BFSFunction(node)
+    
+    def BFSFunction(self, node):
+        #1. Initialize the queue with some item 
+        self.queue.append(node)
+        createClone = Node(node.val, [])
+        self.hashmap[node] = createClone
+        
+        #2. While the queue is not empty 
+        while self.queue:
+            current = self.queue.popleft()
+            
+            for neighbors in current.neighbors:
+                if neighbors not in self.hashmap:
+                    neighborClone = Node(neighbors.val, [])
+                    self.hashmap[neighbors] = neighborClone
+                    self.queue.append(neighbors)
+                self.hashmap[current].neighbors.append(self.hashmap[neighbors])
+                
+        return self.hashmap[node] 
+                    
+         #3. Loop through all the directions (or neighbors)
+        #4. Check the condition if yes add to the queue 
+    def cloneGraphDFS(self, node):
         """
         :type node: Node
         :rtype: Node
