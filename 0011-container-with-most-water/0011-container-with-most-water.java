@@ -15,7 +15,7 @@ class Solution {
             maxOutput = Math.max(maxArea, maxOutput);
             
             if(height[leftPointer] < height[rightPointer]){
-                leftPointer++;
+                leftPointer++; //so when height is too low, this is what you do is increment the left 
             }else{
                 rightPointer--;
             }
