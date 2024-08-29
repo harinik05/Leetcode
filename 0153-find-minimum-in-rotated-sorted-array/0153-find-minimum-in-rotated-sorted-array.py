@@ -17,7 +17,7 @@ class Solution(object):
             return nums[l]
         
         #3. While loop 
-        while l<r:
+        while l<=r:
             mid = (l+r)//2
             #A. Check if the minimum element is in mid
             if nums[mid-1]>nums[mid]:
