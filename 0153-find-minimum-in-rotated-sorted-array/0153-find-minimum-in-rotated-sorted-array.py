@@ -19,21 +19,19 @@ class Solution(object):
         #3. While loop 
         while l<r:
             mid = (l+r)//2
-             #a. mid is too big?
-            if nums[mid]>nums[0]:
-                l = mid+1
-            else:
-                r = mid-1
-            #b. compare the mid with the surrounding
+            #A. Check if the minimum element is in mid
             if nums[mid-1]>nums[mid]:
                 return nums[mid]
             elif nums[mid]>nums[mid+1]:
                 return nums[mid+1]
             
-             
-           
+             #a. Adjust the mid pointer accordingly
+            if nums[mid]>nums[0]:
+                l = mid+1
+            else:
+                r = mid-1
             
-          
+             
             
         return nums[l]
                 
