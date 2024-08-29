@@ -4,13 +4,40 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        #1. Base case 
+        if len(nums) == 1:
+            return nums[0]
         
-        #1. Initialize the setup of output
-        outputMin = nums[0]
+        #2. Initialize the pointers for binary search 
+        l = 0
+        r = len(nums)-1
         
-        #2. Loop through the whole thing
-        for number in nums:
-            outputMin = min(outputMin, number)
+        # case 1 -> array is not rotated
+        if nums[l] < nums[r]:
+            return nums[l]
         
-        return outputMin
+        #3. While loop 
+        while l<r:
+            mid = (l+r)//2
+            
+            #b. compare the mid with the surrounding
+            if mid>0 and nums[mid-1]>nums[mid]:
+                return nums[mid]
+            elif mid<len(nums)-1 and nums[mid]>nums[mid+1]:
+                return nums[mid+1]
+             #a. mid is too big?
+            if nums[mid]>nums[0]:
+                l = mid+1
+            else:
+                r = mid-1
+             
+           
+            
+          
+            
+        return nums[l]
+                
+            
+            
+            
         
