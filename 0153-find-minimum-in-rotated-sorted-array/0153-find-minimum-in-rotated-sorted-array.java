@@ -1,41 +1,39 @@
-class Solution(object):
-    def findMin(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        #1. Base case 
-        if len(nums) == 1:
-            return nums[0]
+class Solution {
+    public int findMin(int[] nums) {
+        //1. Initialize the pointers 
+        int l = 0;
+        int r = nums.length-1;
         
-        #2. Initialize the pointers for binary search 
-        l = 0
-        r = len(nums)-1
+        //2. Handle some basic test cases 
+        //a. nums.length = 1
+        if(nums.length==1){
+            return nums[0];
+        }
+        //b. case 1 - no rotation nums[r]> nums[l]
+        if(nums[r]>nums[l]){
+            return nums[l];
+        }
         
-        # case 1 -> array is not rotated
-        if nums[l] < nums[r]:
-            return nums[l]
-        
-        #3. While loop 
-        while l<r:
-            mid = (l+r)//2
-            #A. Check if the minimum element is in mid
-            if nums[mid-1]>nums[mid]:
-                return nums[mid]
-            elif nums[mid]>nums[mid+1]:
-                return nums[mid+1]
+        //3. binary search for the mid pointer 
+        while(l<=r){
+            //a. mid pointer 
+            int mid = (int)((l+r)/2);
             
-             #a. Adjust the mid pointer accordingly
-            if nums[mid]>nums[0]:
-                l = mid+1
-            else:
-                r = mid-1
+            //b. validate if its min (inflection idea)
+            if(nums[mid]>nums[mid+1]){
+                return nums[mid+1];
+            }
+            else if(nums[mid-1]>nums[mid]){
+                return nums[mid];
+            }
             
-             
-            
-        return nums[l]
-                
-            
-            
-            
-        
+            //c. adjust the mid pointer 
+            if(nums[mid]>nums[0]){
+                l = mid+1;
+            }else{
+                r = mid-1;
+            }
+        }
+        return nums[l];
+    }
+}
