@@ -1,5 +1,6 @@
 from collections import defaultdict
-
+from collections import deque
+# Lets implement some topological ordering logic into this for cycle detection 
 class Solution(object):
     # Constructor 
     def __init__(self):
@@ -7,8 +8,46 @@ class Solution(object):
         self.visitedHashmap = defaultdict(int) # have three states 0: not visited, 1: processing, 2: fully finished processing
         self.adjacencyList = defaultdict(list)
         self.NUMBER = 0
-        
+        self.queue = deque()
+        self.indegreeArray = []
+    
     def canFinish(self, numCourses, prerequisites):
+        self.NUMBER = numCourses
+        #1. Create an indegree array
+        self.indegreeArray = [0] * self.NUMBER
+        
+        
+        #1. Create adjacency list for this problem
+        for pair in prerequisites:
+            self.adjacencyList[pair[0]].append(pair[1])
+            self.indegreeArray[pair[1]] +=1 
+        
+        #2. Queue with incoming edges (put anything that doesnt have dependencies)
+        for i in range(self.NUMBER):
+            if self.indegreeArray[i] == 0:
+                self.queue.append(i)
+        
+        #3. while queue 
+        nodesSoFar = 0
+        while self.queue:
+            # pop the first node 
+            poppedNode = self.queue.popleft()
+            nodesSoFar+=1
+            
+            # go through all the neighbors in popped node 
+            for neighbors in self.adjacencyList[poppedNode]:
+                self.indegreeArray[neighbors]-=1
+                
+                # check if the neighbor is 0 then append to the queue 
+                if self.indegreeArray[neighbors] == 0:
+                    self.queue.append(neighbors)
+        
+        return nodesSoFar == self.NUMBER
+    
+    
+        
+        
+    def canFinishDFS(self, numCourses, prerequisites):
         """
         :type numCourses: int
         :type prerequisites: List[List[int]]
