@@ -1,5 +1,9 @@
 import heapq
 # Dijstra's Algorithm
+
+# Min heap ==> weight, node
+# adjacency List -> node -> [(node, weight),...]
+
 class Solution:
     def __init__(self):
         self.adjacencyList = defaultdict(list)
