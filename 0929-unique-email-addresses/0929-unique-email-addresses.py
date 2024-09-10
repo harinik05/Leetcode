@@ -10,9 +10,14 @@ class Solution:
             local, domain = email.split("@")
             
             #2. Check if there is a . then just remove it 
+            '''
             if "." in local:
                 dots = local.split(".")
                 local = "".join(dots)
+            '''
+            #2 alternative)  replacement 
+            if "." in local:
+                local = local.replace(".","")
             
             #3. Check if there is a + sign then ignore the rest 
             if "+" in local:
