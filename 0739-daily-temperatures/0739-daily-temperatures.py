@@ -8,7 +8,7 @@ class Solution:
         
         #2. Monotonic stack 
         for i, temperature in enumerate(temperatures):
-            #a. While loop 
+            #a. While loop - Monotonic stack of indexes for keeping track of local stuff
             
             while stack and temperature>temperatures[stack[-1]]:
                 #a. Pop the element ad long as current is greater
@@ -20,6 +20,11 @@ class Solution:
             stack.append(i)
         
         return answersArr
+    
+        '''
+        Time: O(n) -> every iteration of one loop is only one pop so N pops in total
+        Space: O(n) -> stack creation
+        '''
                 
         
         
