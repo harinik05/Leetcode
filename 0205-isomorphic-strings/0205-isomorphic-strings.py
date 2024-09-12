@@ -32,6 +32,7 @@ class Solution:
                     return False
                 #hashmapS[s[i]] = t[i]
             
+            
             #c. Not in the hashmap? then add to both 
             else:
                 hashmapS[s[i]] = t[i]
