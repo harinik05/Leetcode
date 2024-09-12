@@ -1,3 +1,8 @@
+'''
+Time: O(N) - processing each chafracter in the string 
+Space: O(1) - size of character set is fixed 
+'''
+
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
         
@@ -13,10 +18,12 @@ class Solution:
             return False
         
         for i in range(LENGTH_S):
+            #a. if the mappings dont exist 
             if s[i] not in hashmapS.keys() and t[i] not in hashmapT.keys():
                 hashmapS[s[i]] = t[i]
                 hashmapT[t[i]] = s[i]
             
+            # exist but one of them dont match 
             elif hashmapS.get(s[i])!=t[i] or hashmapT.get(t[i])!=s[i]:
                 return False
         return True
