@@ -1,5 +1,27 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
+        
+        #1. Hashmaps 
+        hashmapS = {}
+        hashmapT = {}
+        
+        LENGTH_S = len(s)
+        LENGTH_T = len(t)
+        
+        #2. for loop 
+        if LENGTH_S!=LENGTH_T:
+            return False
+        
+        for i in range(LENGTH_S):
+            if s[i] not in hashmapS.keys() and t[i] not in hashmapT.keys():
+                hashmapS[s[i]] = t[i]
+                hashmapT[t[i]] = s[i]
+            
+            elif hashmapS.get(s[i])!=t[i] or hashmapT.get(t[i])!=s[i]:
+                return False
+        return True
+                
+    def isIsomorphic2(self, s: str, t: str) -> bool:
         # Mappings must be birectional 
         
         #a. Initialize the hashmap 
