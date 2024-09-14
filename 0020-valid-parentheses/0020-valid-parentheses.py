@@ -1,26 +1,28 @@
+from typing import List
 class Solution:
     def isValid(self, s: str) -> bool:
-        # Lets use stacks to do this question
-        
-        #1. Create a hashmap to describe the structure for this 
+        #1. Put everything in valid parenthesis 
         hashmap = {}
+        
+        #2. Put stuff in the hashmap 
         hashmap['}'] = '{'
-        hashmap[']'] = '['
         hashmap[')'] = '('
+        hashmap[']'] = '['
+        
+        #3. create the stack to keep track of open braces
         stack = []
         
-        #2. Put all the opening braces in the hashmap
-        for character in s:
-            # Check if opening brace
-            if character in hashmap.values():
-                stack.append(character)
+        #4. for each number
+        for i, brace in enumerate(s):
+            #a. Put in the stack if its an opening brace 
+            if brace in hashmap.values():
+                stack.append(brace)
             
-            # Pop off the stack - closing brace
+            #b. what if its a closing brace
             else:
-                opener = stack.pop() if stack else '*'
-                
-                if hashmap[character] != opener:
+                topElement = stack.pop() if stack else '?'
+                if topElement!= hashmap[brace]:
                     return False
-        return not stack
                 
-            
+        
+        return not stack
