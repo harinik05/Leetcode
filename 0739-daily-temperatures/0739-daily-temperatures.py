@@ -1,58 +1,26 @@
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        #1. For each temperature that you have heres how its gonna work 
+        '''
+        Monotonic decreasing stack of indexes 
         
-        #1. Initialize the array 
-        LENGTH = len(temperatures)
-        answersArr = [0] * LENGTH
+        73 -> put in stack 
+        compare with current element 73 (must be warmer then u pop off)
+        74 -> warmer [73] = []
+        
+        '''
         stack = []
-        
-        #2. Monotonic stack 
-        for i, temperature in enumerate(temperatures):
-            #a. While loop - Monotonic stack of indexes for keeping track of local stuff
+        answers = [0] *len(temperatures)
+        #0. put the first element in 
+        #stack.append(0)
+        #1. For loop 
+        for i, number in enumerate(temperatures):
+            #1. while loop for stacks 
+            while stack and temperatures[stack[-1]] < number:
+                answers[stack[-1]]=(i-stack[-1])
+                stack.pop()
             
-            while stack and temperature>temperatures[stack[-1]]:
-                #a. Pop the element ad long as current is greater
-                pIndex = stack.pop()
-                
-                #b. Answers 
-                answersArr[pIndex] = i - pIndex
-                
+            #2. append stuff into the stack 
             stack.append(i)
-        
-        return answersArr
-    
-        '''
-        Time: O(n) -> every iteration of one loop is only one pop so N pops in total
-        Space: O(n) -> stack creation
-        '''
-                
-        
-        
-        
-        
-        #1. Keep a counter for this 
-        '''
-        TEMPERATURES -> [73,74, 75, 71, 69, 72, 76, 73]
-        
-        ANSWERS -> [1, 1, 4, 2, 1, 1, 0,0]
-        
-        '''
-        '''
-        LENGTH = len(temperatures)
-        answers = [0] * LENGTH
-        threshold = max(temperatures)
-        #2. Nested for loop 
-        for i in range(LENGTH):
-            for j in range(i+1, LENGTH):
-                #a. Check if the next ones is greater than 
-                if temperatures[j] > temperatures[i]:
-                    answers[i] = j-i
-                    break
-                
-        
-        #3. Return the answer
         return answers
-        '''
-                    
-                    
-        
+                
