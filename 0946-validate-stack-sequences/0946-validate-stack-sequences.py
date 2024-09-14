@@ -1,23 +1,17 @@
 class Solution:
     def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
         
-        #1. Initialize the variables 
-        LENGTH = len(pushed)
-        stack = []
-        
-        #2. Initialize the index 
-        p = 0
-        
-        #3. For loop 
-        for number in pushed:
+        # Keep adding stuff to the stack until it equals the popped stuff
+        stack=[]
+        for i,number in enumerate(pushed):
             
-            #1. Add to the stack continuously 
+            #a. Add the first element into the stack
             stack.append(number)
             
-            #2. While the stack satisfies some conditiosn 
+            #b. Check the stack 
             while stack and popped and stack[-1] == popped[0]:
                 stack.pop()
                 popped.pop(0)
         
-        #4. Return if p == LENGTH
-        return False if stack else True
+        return not stack and not popped
+            
