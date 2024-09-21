@@ -23,7 +23,7 @@ class Solution:
         #2. For loop 
         counter = 0
         finalResult = 0
-        for i in range(len(maxHeap)):
+        for i in range(len(nums)):
             
             #a. check if it reached
             if counter==k:
