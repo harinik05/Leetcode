@@ -23,16 +23,10 @@ class Solution:
         #2. For loop 
         counter = 0
         finalResult = 0
-        for i in range(len(nums)):
-            
-            #a. check if it reached
-            if counter==k:
-                break
-            #b. keep looping and define the final element 
-            counter+=1
+        for _ in range(k):
             finalResult = maxHeap[0] * -1
             heapq.heappop(maxHeap)
-            #heapq.heapify(maxHeap)
+       
         return finalResult
             
             
