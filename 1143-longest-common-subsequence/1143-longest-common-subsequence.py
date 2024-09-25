@@ -1,5 +1,39 @@
 class Solution(object):
+    def __init__(self):
+        self.MEMO = []
+        self.ROWS = 0
+        self.COLS = 0
+        self.text1 = ""
+        self.text2 = ""
+    
+    def memoizationFunction(self, i, j):
+        #1.) Check if you're ending up in the rows 
+        if i == self.ROWS or j == self.COLS:
+            return 0
+        #2. Check if the values are equal 
+        elif (self.MEMO[i][j] == "*") and (self.text1[i] == self.text2[j]):
+            self.MEMO[i][j] = self.memoizationFunction(i+1,j+1) +1
+        
+        #3. Check if the values aren't matching 
+        elif(self.MEMO[i][j] == "*") and (self.text1 != self.text2[j]):
+            self.MEMO[i][j] = max(self.memoizationFunction(i+1, j), self.memoizationFunction(i,j+1))
+        
+        #4. return the answer
+        return self.MEMO[i][j]
+        
     def longestCommonSubsequence(self, text1, text2):
+        #1.) Initialize the DP array 
+        self.text1 = text1
+        self.text2 = text2
+        self.ROWS = len(text1)
+        self.COLS = len(text2)
+        self.MEMO = [["*" for _ in range(self.COLS+1)] for _ in range(self.ROWS+1)]
+        
+        #2.) return the answer 
+        return self.memoizationFunction(0,0)
+    
+    #Bottom Up Approach
+    def longestCommonSubsequence_DP(self, text1, text2):
         """
         :type text1: str
         :type text2: str
