@@ -27,7 +27,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        self.subsetsArr = []
+        #self.subsetsArr = []
         self.backtrackingFunction(0,nums,[])
         return self.subsetsArr
         
