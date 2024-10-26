@@ -5,6 +5,9 @@ class Node:
         self.val = int(x)
         self.next = next
         self.random = random
+        
+        Time: O(n)
+        Space:O(n)
 """
 
 class Solution:
