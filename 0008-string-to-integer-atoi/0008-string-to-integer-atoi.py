@@ -1,45 +1,49 @@
+MAX_NUMBER = 2**31-1
+MIN_NUMBER = -2**31
 class Solution(object):
+    
     def myAtoi(self, s):
         """
         :type s: str
         :rtype: int
         """
-        #1. Ignore the whitespace 
-        noWS = s.lstrip()
-        if not noWS:
+        
+        #1. Ignore whitespaces first 
+        #2. Determine the sign - if nothing or if its a number then its negative
+        #3. Convert this to some int, stop at some non int tho 
+        #4. Return the answer
+        
+        s_nows = s.lstrip()
+        if s_nows=="":
             return 0
-        #2. Determine the sign by checking the next char
         i = 0
-        sign = 1
-        # Set up the sign and then break once this is done
-        if noWS[i] == "+":
-            sign = 1
+        sign = s_nows[i]
+        negative = False
+        if sign == "+":
             i+=1
-        elif noWS[i] == "-":
-            sign = -1
+        elif sign == "-":
             i+=1
+            negative = True 
         
-        #3. Conversion - read the integer skip zeros
-        # you need to add 1 to i -> why? you need to go past the current index 
-        
-        result = 0
-        for j in range(i,len(noWS),1):
-    
-            if not noWS[j].isdigit():
+        finalResult = 0
+        for j in range(i,len(s_nows)):
+            if not s_nows[j].isdigit():
                 break
+            # final result - build this up
+            finalResult = 10*finalResult + int(s_nows[j])
             
-            result = result*10 + int(noWS[j])
+        number = -1 if negative else 1
+        finalNumber = finalResult * number
+        if finalNumber>MAX_NUMBER and number==1:
+            return MAX_NUMBER
+        
+        elif finalNumber<MIN_NUMBER and number==-1:
+            return MIN_NUMBER
+        return finalNumber
+            
         
         
-        finalResult = result * sign if -2**31 <= (result) <= 2**31 -1 else "FIX"
-        if finalResult == "FIX" and sign == -1:
-            finalResult = -2**31
-        elif finalResult == "FIX" and sign == 1:
-            finalResult = 2**31 -1
-        
-        return finalResult
-        
-        #4. Finally check if the range then round it 
-        
-        
+            
+            
+            
         
