@@ -1,3 +1,7 @@
+'''
+O(n) time complexity 
+O(1) space complexity
+'''
 MAX_NUMBER = 2**31-1
 MIN_NUMBER = -2**31
 class Solution(object):
@@ -40,10 +44,4 @@ class Solution(object):
         elif finalNumber<MIN_NUMBER and number==-1:
             return MIN_NUMBER
         return finalNumber
-            
-        
-        
-            
-            
-            
-        
+                
