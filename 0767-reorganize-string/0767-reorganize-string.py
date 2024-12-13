@@ -1,3 +1,12 @@
+'''
+This question involves the use of heaps (max heaps) and priority queues to come up with 
+solution- 
+1. Heaps have certain algorithm runtimes. For the heapify operation, it takes O(n) time and 
+space. Then, the insert and delete options take O(log n) time and O(1) space.
+-> This one takes O(nlogk) time complexity. N-> total characters in string,
+k-> bounded by 26, total unique characters in string so some might argue that its O(n)
+2. O(k) since I'm performing heapify 
+'''
 class Solution(object):
     def reorganizeString(self, s):
         """
