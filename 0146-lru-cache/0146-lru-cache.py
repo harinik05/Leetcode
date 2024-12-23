@@ -31,6 +31,7 @@ class LRUCache(object):
         tempNode.prev = prevNode 
         tempNode.next = self.tail 
         self.tail.prev = tempNode 
+        
     
     #Remove from wherever it is (may not even be head )
     def removeNode(self, node):
@@ -39,6 +40,7 @@ class LRUCache(object):
         nextNode = tempNode.next 
         prevNode.next = nextNode 
         nextNode.prev = prevNode
+        
     
     def reassignHead(self):
         headNode = self.head.next 
@@ -46,6 +48,7 @@ class LRUCache(object):
         self.removeNode(headNode)
         k, v = headNode.value
         del self.hashmap[k]
+        
         
     
     def get(self, key):
