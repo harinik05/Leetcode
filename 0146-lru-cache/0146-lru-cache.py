@@ -16,10 +16,13 @@ class LRUCache:
         #1. if the key is in dictionary 
         if key in self.hashmap:
             self.hashmap.move_to_end(key)
-        self.hashmap[key]=value
+            self.hashmap[key]=value
+            return
+        
         #2. check capacity 
-        if len(self.hashmap) > self.capacity:
+        if len(self.hashmap) == self.capacity:
             self.hashmap.popitem(last=False)
+        self.hashmap[key]=value
         
         
         
